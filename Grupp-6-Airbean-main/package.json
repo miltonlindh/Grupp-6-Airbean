@@ -1,0 +1,27 @@
+{
+  "name": "grupp-6-airbean",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miltonlindh/Grupp-6-Airbean.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/miltonlindh/Grupp-6-Airbean/issues"
+  },
+  "homepage": "https://github.com/miltonlindh/Grupp-6-Airbean#readme",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "sqlite3": "^5.1.7",
+    "uuid": "^11.1.0"
+  }
+}
