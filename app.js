@@ -1,13 +1,17 @@
 const express = require("express");
 const cors = require("cors");
-const app= express();
+const app = express();
 
+// Importerar routes
 const cartRoutes = require("./routes/cartRoutes");
+const menuRoute = require("./routes/menu");
+
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-app.use("./api/cart", cartRoutes);
-
-
+// Routes
+app.use("/api/cart", cartRoutes);
+app.use("/menu", menuRoute);
 
 module.exports = app;
