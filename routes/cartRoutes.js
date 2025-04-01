@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 //hämtar frpn meny fil
-const menu = require("../menu.json");
+const menu = require("../Data/menu.json");
 
 //skapar en tom kundvagn
 let cart = [];
