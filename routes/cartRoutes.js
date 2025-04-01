@@ -49,5 +49,22 @@ router.get("/", (req, res) => {
         total
     });
 });
-
+// ta bort produkt
+router.delete("/:productId", (req, res) =>{
+    //hämta id från url
+    const productId = parseInt(req.params.productId);
+//hitta index för produkten om den finns
+    const index = cart.findIndex(item => item.productId === productId);
+//om produkten inte finns i varukorgen
+    if (index === -1) {
+        return res.status(404).json({ error: "Produkten finns inte i din varukorg"});
+    }
+    //ta bort från varukorg
+    cart.splice(index, 1);
+//skicka bekräftlese och uppdaterad korg
+    res.json({
+        message: "Produkten har tagits bort",
+        cart
+    });
+})
 module.exports = router;
