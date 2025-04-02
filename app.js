@@ -25,5 +25,8 @@ app.use("/menu", menuRoute);
 const orderHistoryRoute = require("./routes/orderHistory");
 app.use("/api/orders", orderHistoryRoute);
 
+const campaignRoutes = require("./routes/campaigns");
+app.use("/api/campaigns", campaignRoutes);
+
 module.exports = app;
 
