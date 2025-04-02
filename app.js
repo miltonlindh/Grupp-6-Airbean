@@ -4,7 +4,15 @@ const app = express();
 
 // Importerar routes
 const cartRoutes = require("./routes/cartRoutes");
+const aboutRoutes = require("./routes/aboutRoutes")
 const menuRoute = require("./routes/menu");
+
+app.use(cors());
+app.use(express.json());
+
+app.use("./api/cart", cartRoutes);
+app.use("/api/about", aboutRoutes);
+
 
 // Middleware
 app.use(cors());
@@ -18,3 +26,4 @@ const orderHistoryRoute = require("./routes/orderHistory");
 app.use("/api/orders", orderHistoryRoute);
 
 module.exports = app;
+
