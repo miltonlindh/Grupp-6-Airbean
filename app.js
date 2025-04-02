@@ -14,4 +14,7 @@ app.use(express.json());
 app.use("/api/cart", cartRoutes);
 app.use("/menu", menuRoute);
 
+const orderHistoryRoute = require("./routes/orderHistory");
+app.use("/api/orders", orderHistoryRoute);
+
 module.exports = app;
