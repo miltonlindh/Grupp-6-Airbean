@@ -1,70 +1,75 @@
 const express = require("express");
 const router = express.Router();
-//hämtar frpn meny fil
-const menu = require("../Data/menu.json");
+const db = require("../db/database");
+const menu = require("../menu.json");
 
-//skapar en tom kundvagn
-let cart = [];
-
-//lägger till en produkt i kundvagnen
+// lägg till i varukorgen
 router.post("/", (req, res) => {
-    const { productId, quantity } = req.body; //hämtar produkt id och antal
+  const { productId, quantity } = req.body;
+//kollar om produkten finns på menyn
+  const product = menu.menu.find(p => p.id === productId);
+  if (!product) {
+    return res.status(400).json({ error: "Produkten finns inte i menyn" });
+  }
 
-    //letar upp produkten i menyn
-    const product = menu.menu.find(p => p.id === productId);
-    if (!product) {
-        return res.status(400).json({ error: "Finns inte på menyn"});
+  //lägger till i databsen
+  db.run(
+    `INSERT INTO cart_items (productId, quantity) VALUES (?, ?)`,
+    [productId, quantity],
+    function (err) {
+      if (err) {
+        return res.status(500).json({ error: "Kunde inte lägga till i varukorgen" });
+      }
+     //skcikar bekräftelse samt id för raden som skapats
+      res.status(201).json({ message: "Tillagd i varukorgen", id: this.lastID });
     }
-    //kollar om produkt redan finns i kundvagnen
-  const existingItem = cart.find(item => item.productId === productId);
-  //om den finns lägger ökar antalet 
-    if (existingItem) {
-        existingItem.quantity += quantity;
-    }else{
-        //annars lägger den till produkten
-        cart.push({productId, quantity});
-    }
-
-    res.status(201).json({ message: "Produkten har lagts till", cart});
+  );
 });
-//hämtar hela kundvagnen
+
+// GET hämta och visa varukorgen
 router.get("/", (req, res) => {
-    //skapar en array för info av varje vara i kundvagnn
-    const cartWithDetails = cart.map(item =>{
-        //letar upp info i meny
-        const product = menu.main.find(p => p.id === item.productId);
-        return {
-            productId: item.productId,
-            title: product.title,
-            price: product.price,
-            quantity: item.quantity,
-            subtotal: product.price * item.quantity
-        };
-    });
-    //räknar ut totalpriset 
-    const total = cartWithDetails.reduce((sum, item) => sum + item.subtotal, 0);
-//skickar tillbaka kundvagn samt totalbelopp
-    res.json({
-        cart: cartWithDetails,
-        total
-    });
-});
-// ta bort produkt
-router.delete("/:productId", (req, res) =>{
-    //hämta id från url
-    const productId = parseInt(req.params.productId);
-//hitta index för produkten om den finns
-    const index = cart.findIndex(item => item.productId === productId);
-//om produkten inte finns i varukorgen
-    if (index === -1) {
-        return res.status(404).json({ error: "Produkten finns inte i din varukorg"});
+    //hämta alla rader från cart_items
+  db.all(`SELECT * FROM cart_items`, (err, items) => {
+    if (err) {
+      return res.status(500).json({ error: "Kunde inte hämta varukorgen" });
     }
-    //ta bort från varukorg
-    cart.splice(index, 1);
-//skicka bekräftlese och uppdaterad korg
-    res.json({
-        message: "Produkten har tagits bort",
-        cart
+
+    //lägger till namn pris och totalen från menyn
+    const cartWithDetails = items.map(item => {
+      const product = menu.menu.find(p => p.id === item.productId);
+      const subtotal = product.price * item.quantity;
+
+      return {
+        id: item.id,
+        productId: item.productId,
+        title: product.title,
+        price: product.price,
+        quantity: item.quantity,
+        subtotal
+      };
     });
-})
+//räknar ut total kostnad för hela varukorgen
+    const total = cartWithDetails.reduce((sum, item) => sum + item.subtotal, 0);
+
+    res.json({ cart: cartWithDetails, total });
+  });
+});
+
+// DELETE tar bort från varukorgen
+router.delete("/:id", (req, res) => {
+  const itemId = req.params.id;
+//raderar raden med id som skrivits in
+  db.run(`DELETE FROM cart_items WHERE id = ?`, [itemId], function (err) {
+    if (err) {
+      return res.status(500).json({ error: "Kunde inte ta bort produkt" });
+    }
+    //produkten fanns inte
+    if (this.changes === 0) {
+      return res.status(404).json({ error: "Produkten finns inte i varukorgen" });
+    }
+//produkten tagits bort bekräftelse meddelande
+    res.json({ message: "Produkt borttagen ur varukorgen" });
+  });
+});
+
 module.exports = router;
