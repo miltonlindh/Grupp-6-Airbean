@@ -31,4 +31,10 @@ const campaignRoutes = require("./routes/campaigns");
 // Använder routen under endpointen /api/campaigns
 app.use("/api/campaigns", campaignRoutes);
 
+const userRoutes = require("./routes/userRoutes");
+app.use("/api/users", userRoutes);
+
+const orderRoutes = require("./routes/orderRoutes");
+app.use("/api/orders", orderRoutes);
+
 module.exports = app;

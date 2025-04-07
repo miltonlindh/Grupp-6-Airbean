@@ -3,8 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 // Importerar SQLite och öppnar upp en anslutning till databasen 'airbean.db'
-const sqlite3 = require("sqlite3").verbose();
-const db = new sqlite3.Database("./airbean.db");
+const db = require("../db/database");
 
 // Endpoint: GET /:userId
 // Hämtar alla ordrar från databasen för en specifik användare
