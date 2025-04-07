@@ -1,0 +1,12 @@
+{
+    "campaigns": [
+      {
+        "id": 1,
+        "title": "Latte + Doppio Kombo",
+        "items": [4, 2],
+        "price": 79,
+        "desc": "Latte Macchiato + Caffè Doppio till kampanjpris!"
+      }
+    ]
+  }
+  
