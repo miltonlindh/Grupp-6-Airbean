@@ -6,6 +6,7 @@ const app = express();
 const cartRoutes = require("./routes/cartRoutes");
 const aboutRoutes = require("./routes/aboutRoutes")
 const menuRoute = require("./routes/menu");
+const orderRoutes = require("./routes/orderRoutes");
 
 app.use(cors());
 app.use(express.json());
@@ -21,6 +22,7 @@ app.use(express.json());
 // Routes
 app.use("/api/cart", cartRoutes);
 app.use("/menu", menuRoute);
+app.use("/api/orders", orderRoutes);
 
 const orderHistoryRoute = require("./routes/orderHistory");
 app.use("/api/orders", orderHistoryRoute);
