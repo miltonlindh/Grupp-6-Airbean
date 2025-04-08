@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 //databas och meny
 const db = require("../db/database");
-const menu = require("../menu.json");
+const menu = require("../Data/menu.json");
 //middleware
-const validateCartItem = require("../middleware/validateCartItem");
+const validateCartItem = require("../middleware/validateCartItems");
 
 //lägg till produkten i varukorgen, middleware körs först
 router.post("/", validateCartItem, (req, res) => {
