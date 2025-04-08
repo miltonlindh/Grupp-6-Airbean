@@ -2,7 +2,11 @@ const express = require("express");
 const router = express.Router();
 //databas och meny
 const db = require("../db/database");
+
 const menu = require("../Data/menu.json");
+
+const menu = require("../data/menu.json");
+
 //middleware
 const validateCartItem = require("../middleware/validateCartItems");
 
@@ -16,11 +20,15 @@ router.post("/", validateCartItem, (req, res) => {
     [productId, quantity],
     function (err) {
       if (err) {
-        return res.status(500).json({ error: "Kunde inte lägga till i varukorgen" });
+        return res
+          .status(500)
+          .json({ error: "Kunde inte lägga till i varukorgen" });
       }
 
       //skickar bekräftelse och id
-      res.status(201).json({ message: "Tillagd i varukorgen", id: this.lastID });
+      res
+        .status(201)
+        .json({ message: "Tillagd i varukorgen", id: this.lastID });
     }
   );
 });
@@ -34,8 +42,8 @@ router.get("/", (req, res) => {
     }
 
     //matchar produkterna med menyn samt räknar ut totalen
-    const cartWithDetails = items.map(item => {
-      const product = menu.menu.find(p => p.id === item.productId);
+    const cartWithDetails = items.map((item) => {
+      const product = menu.menu.find((p) => p.id === item.productId);
       const subtotal = product.price * item.quantity;
 
       return {
@@ -44,13 +52,13 @@ router.get("/", (req, res) => {
         title: product.title,
         price: product.price,
         quantity: item.quantity,
-        subtotal
+        subtotal,
       };
     });
 
     //räknar ut totalkostnaden
     const total = cartWithDetails.reduce((sum, item) => sum + item.subtotal, 0);
-//varukorg + totalsumma
+    //varukorg + totalsumma
     res.json({ cart: cartWithDetails, total });
   });
 });
@@ -64,11 +72,13 @@ router.delete("/:id", (req, res) => {
     if (err) {
       return res.status(500).json({ error: "Kunde inte ta bort produkt" });
     }
-//om produkten inte fanns i varukorgen
+    //om produkten inte fanns i varukorgen
     if (this.changes === 0) {
-      return res.status(404).json({ error: "Produkten finns inte i varukorgen" });
+      return res
+        .status(404)
+        .json({ error: "Produkten finns inte i varukorgen" });
     }
-//bekräftelse meddelande
+    //bekräftelse meddelande
     res.json({ message: "Produkt borttagen ur varukorgen" });
   });
 });

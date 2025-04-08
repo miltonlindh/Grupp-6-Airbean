@@ -7,7 +7,7 @@ router.post("/", (req, res) => {
   const { userId = null, items } = req.body; //userId kan vara null(gäst)
 
   const orderTime = new Date().toISOString();
-  const deliveryTime = new Date(Date.now() + 5 * 60000).toISOString(); //5 min 
+  const deliveryTime = new Date(Date.now() + 5 * 60000).toISOString(); //5 min
 
   //måste finnas produkter
   if (!items || !Array.isArray(items) || items.length === 0) {
@@ -16,11 +16,12 @@ router.post("/", (req, res) => {
 
   //lägger in order i databasen
   db.run(
-    `INSERT INTO orders (userId, orderTime, deliveryTime, status)
-     VALUES (?, ?, ?, ?)`,
-    [userId, orderTime, deliveryTime, "På väg"],
+    `INSERT INTO orders (userId, orderTime, deliveryTime, status, items)
+     VALUES (?, ?, ?, ?, ?)`,
+    [userId, orderTime, deliveryTime, "På väg", JSON.stringify(items)],
     function (err) {
       if (err) {
+        console.error("Fel vid SQL:", err.message);
         return res.status(500).json({ error: "Fel vid beställning" });
       }
 
@@ -28,7 +29,7 @@ router.post("/", (req, res) => {
         message: "Order lagd",
         orderId: this.lastID,
         status: "På väg",
-        levererasOmMinuter: 5
+        levererasOmMinuter: 5,
       });
     }
   );
@@ -51,7 +52,7 @@ router.get("/:id", (req, res) => {
     res.json({
       orderId: row.id,
       status: minutesLeft > 0 ? "På väg" : "Levererad",
-      levererasOmMinuter: minutesLeft
+      levererasOmMinuter: minutesLeft,
     });
   });
 });
