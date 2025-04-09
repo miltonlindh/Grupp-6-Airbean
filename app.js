@@ -21,6 +21,13 @@ app.use(express.json());
 app.use("/api/cart", cartRoutes);
 app.use("/menu", menuRoute);
 
+// Importerar navigerings-routen från filen routes/navigation.js
+const navigationRoute = require("./routes/navigation");
+
+// Registrerar routen i Express-appen
+// All trafik till /api/navigation kommer hanteras av navigationRoute
+app.use("/api/navigation", navigationRoute);
+
 // Importerar routen som hanterar orderhistorik (GET /:userId)
 const orderHistoryRoute = require("./routes/orderHistory");
 // Använder routen under endpointen /api/orders

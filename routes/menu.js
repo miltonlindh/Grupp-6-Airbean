@@ -5,7 +5,7 @@ const express = require("express");
 const router = express.Router();
 
 // Importerar menyn från JSON-filen (menyn med alla kaffesorter)
-const menu = require("../data/menu.json");
+const menu = require("../Data/menu.json");
 
 // Definierar en GET-route på "/"
 // När någon anropar /menu så skickas menyn som svar
