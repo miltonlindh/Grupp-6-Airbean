@@ -3,7 +3,7 @@ const router = express.Router();
 const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
 const db = require("./userModel");
-const validateUser = require("./validate");
+const validateUser = require("../middleware/validate");
 
 //Logik för att registrera nya användare
 

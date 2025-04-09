@@ -5,8 +5,6 @@ const db = require("../db/database");
 
 const menu = require("../Data/menu.json");
 
-const menu = require("../data/menu.json");
-
 //middleware
 const validateCartItem = require("../middleware/validateCartItems");
 

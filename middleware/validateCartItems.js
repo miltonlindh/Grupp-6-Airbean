@@ -1,8 +1,4 @@
-
 const menu = require("../Data/menu.json");
-=======
-const menu = require("../data/menu.json");
-
 
 function validateCartItem(req, res, next) {
   //hämtar productId och quantity
