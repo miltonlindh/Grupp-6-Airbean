@@ -10,14 +10,14 @@ npm run dev
 endpoints
 | Funktion               | URL                                                          | Metod  |
 |------------------------|--------------------------------------------------------------|--------|
-| Hämta meny             | `http://localhost:3000/api/menu`                             | GET    |
-| Skapa användare        | `http://localhost:3000/api/signUp`                           | POST   |
-| Logga in               | `http://localhost:3000/api/logIn`                            | POST   |
-| Skapa beställning      | `http://localhost:3000/api/order`                            | POST   |
-| Hämta orderhistorik    | `http://localhost:3000/api/orderHistory/:userID`             | GET    |
-| Hämta leveransstatus   | `http://localhost:3000/api/deliveryStats/:orderID`           | GET    |
-| Uppdatera leveransstatus | `http://localhost:3000/api/deliveryStats/:orderID/:userID` | PATCH  |
-| Om Airbean             | `http://localhost:3000/api/about`                            | GET    |
+| Hämta meny             | `http://localhost:3003/api/menu`                             | GET    |
+| Skapa användare        | `http://localhost:3003/api/signUp`                           | POST   |
+| Logga in               | `http://localhost:3003/api/logIn`                            | POST   |
+| Skapa beställning      | `http://localhost:3003/api/order`                            | POST   |
+| Hämta orderhistorik    | `http://localhost:3003/api/orderHistory/:userID`             | GET    |
+| Hämta leveransstatus   | `http://localhost:3003/api/deliveryStats/:orderID`           | GET    |
+| Uppdatera leveransstatus | `http://localhost:3003/api/deliveryStats/:orderID/:userID` | PATCH  |
+| Om Airbean             | `http://localhost:3003/api/about`                            | GET    |
 
 ## Tekniker och verktyg
 - **JavaScript** - Språket som används.  
