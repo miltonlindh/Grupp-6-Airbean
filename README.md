@@ -18,6 +18,8 @@ endpoints
 | Hämta leveransstatus   | `http://localhost:3003/api/deliveryStats/:orderID`           | GET    |
 | Uppdatera leveransstatus | `http://localhost:3003/api/deliveryStats/:orderID/:userID` | PATCH  |
 | Om Airbean             | `http://localhost:3003/api/about`                            | GET    |
+| Ta bort produkt ur varukorg | `http://localhost:3003/api/cart/:id`         | DELETE    |
+
 
 ## Tekniker och verktyg
 - **JavaScript** - Språket som används.  
