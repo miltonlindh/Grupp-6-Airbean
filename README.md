@@ -29,4 +29,14 @@ endpoints
 - **JSON web tokens*** - Används för autentisering av användare.   
 - **bcrypt** - Hashar lösenord samt verifierar de vid inloggning.  
 - **Nodemon** - Startar om servern autmatiskt om filer ändras.  
-- **CORS** - Tillåter kommunikation mellan frontend och backend från olika domäner också  
+- **CORS** - Tillåter kommunikation mellan frontend och backend från olika domäner också
+##
+## WebSockets
+Om vi hade byggt in WebSockets i Airbean så hade vi gjort användarupplevelsen bättre genom realtidsuppdateringar.   
+
+Livestatus på leveranser, så istället för att behvöa uppdatera sidan eller klicka runt så hade man direkt kunnat se att drönare är påväg, ungefär som att följa en beställning i en vanlig matlevereansapp.  
+
+Ha notiser i realtid så när något händer med beställningen såsom att den är redo att skickas så får användaren en notis om det. 
+
+
+
